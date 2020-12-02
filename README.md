@@ -1,24 +1,13 @@
 # electron-vue-demo
 
 ## Project setup
-```
-yarn install
-```
+vue add electron-builder
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+npm install (或者 cnpm install)
 
-### Compiles and minifies for production
-```
-yarn build
-```
+安装过程大概率出现报错：Error: post install error, please remove node_modules before retry!
 
-### Lints and fixes files
-```
-yarn lint
-```
+直接忽略，不影响运行
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# start 
+npm run electron:serve
