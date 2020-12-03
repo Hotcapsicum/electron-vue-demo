@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, protocol, BrowserWindow, Menu  } from 'electron'
+import { app, protocol, BrowserWindow, Menu, globalShortcut } from 'electron'
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib'
 import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -35,7 +35,7 @@ async function createWindow() {
     // Create the browser window.
     const win = new BrowserWindow({
         width: 1200,
-        height: 600,
+        height: 800,
         webPreferences: {
             webSecurity: false,
             // Use pluginOptions.nodeIntegration, leave this alone
@@ -53,6 +53,11 @@ async function createWindow() {
         // Load the index.html when not in development
         win.loadURL('app://./index.html')
     }
+    // 调出控制台
+    // windows： Ctrl+Shift+i； macOS：Commond+Shift+i
+    globalShortcut.register('CommandOrControl+Shift+i', function () {
+        win.webContents.openDevTools()
+    })
 }
 
 // Quit when all windows are closed.
@@ -74,13 +79,17 @@ app.on('activate', () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
-    if (isDevelopment && !process.env.IS_TEST) {
+    if (isDevelopment) {
       // Install Vue Devtools
       try {
           await installExtension(VUEJS_DEVTOOLS)
       } catch (e) {
           console.error('Vue Devtools failed to install:', e.toString())
       }
+
+      // globalShortcut.register('CommandOrControl+Shift+i', function () {
+      //     win.webContents.openDevTools()
+      // })
     }
     createWindow()
 })
